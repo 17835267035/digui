@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>some、every、递归、拷贝</title>
+</head>
+<body>
+	<script>
+		// some 是否有一个符合条件  every 
+	    var arr = [-5,-10,5,9,8,3,7];
+	    var result = some(arr,function(value){
+	    	return value>0;
+	    })
+	    // var result = some(arr,(value) => value>0);
+	    console.log(result);
+	    var result = every(arr,function(value){
+	    	return value>0;
+	    	    })
+	    console.log(result);
+	    
+	    function some(arr,fn){
+	    	for(var i=0;i<arr.length;i++){
+	    		if(fn(arr[i])){
+	    			return true;
+	    		}
+	    	}
+	    	return false;
+	    }
+
+	    function every(arr,fn){
+	    	for(var i=0;i<arr.length;i++){
+	    		if(!fn(arr[i])){
+	    			return false;
+	    		}
+	    	}
+	    	return true;
+	    }
+
+
+		// 递归
+		// 自己调用它自己本身
+		    fn(1);
+		    function fn(num){
+		    	if(num<5){
+		    		fn(++num);
+		    	}
+		    	alert(num);
+		    }
+
+		    // function fn1(){
+		    // 	fn2();
+		    // 	alert(1);
+		    // }
+		    // function fn2(){
+		    // 	fn3();
+		    // 	alert(2);
+		    // }
+		    // function fn3(){
+		    // 	fn4();
+		    // 	alert(3);
+		    // }
+		    // function fn4(){
+		    // 	alert(4);
+		    // }
+
+
+
+		// 拷贝
+		var arr = [1,2,3,4,5,8];
+		var arr1 = arr;   //地址   (浅拷贝)
+		arr1[1]='a';
+		arr[3] = 'x';
+		console.log(arr1);
+		console.log(arr);
+
+		// 传值  (深拷贝)
+		// var arr1 = [];
+		// for(var i=0;i<arr.length;i++){
+		// 	arr1[i] = arr[i];
+		// }
+		// arr1[1]='a';
+		// arr[3] = 'x';
+		// console.log(arr1);
+		// console.log(arr);
+
+
+		// 数组的递归
+		var arr = [1,2,3,4,5,8,['x','y','z']];
+		var arr1 = copy(arr);
+		// console.log(arr1);
+		function copy(arr){
+			var newarr = [];
+			for(var i=0;i<arr.length;i++){
+				if(typeof arr[i] == 'object'){
+					newarr[i] = copy(arr[i]);
+				}else{
+					newarr[i] = arr[i];
+				}
+			}
+			return newarr;
+		}
+		arr[6][0]='a';
+		console.log(arr1);
+		console.log(arr);
+	</script>
+</body>
+</html>
